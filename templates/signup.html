@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>body{background-color: rgb(147, 199, 205)}.padding{padding: 5rem !important}.signup-form{background-color: #fff;padding: 45px;border-radius: 1px}h2{font-size: 36px;letter-spacing: 0.08em}.signup-form .form-control{font-size: 16px;padding: 7px 15px;color: #555;background-color: #fff;border-radius: 3px}.signup-form input{border: 1px solid #eee;height: 38px;box-shadow: none !important}.btn-blue{background: #44c5ee;padding: 8px 28px;border: 2px solid #44c5ee;color: #fff;border-radius: 50px;font-weight: 700;letter-spacing: 0.08em;-webkit-transition: 0.5s all;transition: 0.5s all;box-shadow: 0px 0px 60px 0px rgba(68, 197, 238, 0.6);outline: none !important}.btn-blue:hover, .btn-blue:focus, .btn-blue:active{background: #fff;color: #496174}</style>
+<body>
+    
+    <div class="padding container d-flex justify-content-center">
+        <div class="col-md-10 col-md-offset-1">
+            <form class="signup-form" action="/signup" method="POST" enctype="multipart/form-data">
+            
+                <h2 class="text-center">SIGNUP </h2>
+                <hr>
+                <div class="form-group"> <input type="text" class="form-control" placeholder="User Name" required="required"name="user_name"> </div>
+                <div class="form-group"> <input type="text" class="form-control" placeholder="First Name" required="required"name="first_name"> </div>
+                
+                <div class="form-group"> <input type="text" class="form-control" placeholder="Last Name" required="required"name = "last_name"> </div>
+                <div class="form-group"> <input type="email" class="form-control" placeholder="Email Address" required="required"name="email_id"> </div>
+               
+                <div class="form-group"> <input type="password" class="form-control" placeholder="Password" required="required"name="pwd"> </div>
+              
+                <div class="form-group"> <input type="date" class="form-control" placeholder="date of birth" required="required"name="dob"> </div>
+                <p>Set Profile Picture</p>
+                <div class ="form-group"><input type="file" name="pictureFile" required = "required"></div>
+            <p>
+            <div class="form-group text-center"> <button type="submit" class="btn btn-blue btn-block">Sign In</button> </div>
+            </p>
+            Already a user?
+            <a href ="/login">Login</a>
+            </form>
+            
+        </div>
+    </div>
+   
+</body>
+</html>

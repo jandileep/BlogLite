@@ -1,0 +1,704 @@
+openapi: 3.0.0
+info:
+  title: Social Blog Lite Application
+  description: >
+    <div>In this project, I have created a RESTful API, database models using Flask-RESTful and flask-SQLAlchemy.
+    
+    </div>
+
+    <h3> signup Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>user_id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>user_name</td>
+        <td>String</td>
+        <td>Not Null,Unique</td>
+      </tr>
+      <tr>
+        <td>password</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+       <tr>
+        <td>dob</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>email</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>first_name</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>last_name</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+
+      <tr>
+        <td>profile_pic</td>
+        <td>String</td>
+        <td></td>
+      </tr>      
+
+    </tbody>
+    </table>
+
+    <h3> post Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>post_id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>title</td>
+        <td>String</td>
+        <td>Unique, Not Null</td>
+      </tr>
+      <tr>
+        <td>desc</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>      
+      <tr>
+        <td>picture</td>
+        <td>String</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>date</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>time</td>
+        <td>String</td>
+        <td> Not Null</td>
+      </tr>
+      <tr>
+        <td>likes</td>
+        <td>Integer</td>
+        <td></td>
+      </tr>
+    </tbody>
+    </table>
+    
+    <h3> User_Comment Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>comment_id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>comment</td>
+        <td>String</td>
+        <td>Unique, Not Null</td>
+      </tr>
+      <tr>
+        <td>user_id</td>
+        <td>Integer</td>
+        <td>Foreign Key(signup.user_id),Not Null</td>
+      </tr>  
+      <tr>
+        <td>fuser_id</td>
+        <td>Integer</td>
+        <td>Foreign Key(post.user_id),Not Null</td>
+      </tr>  
+      <tr>
+        <td>post_id</td>
+        <td>Integer</td>
+        <td>Foreign Key(signup.user_id),Not Null</td>
+      </tr>  
+    </tbody>
+    </table>
+
+
+    <h3> Follower Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>user_id</td>
+        <td>Integer</td>
+        <td>Foreign Key (user.user_id), Not Null</td>
+      </tr>
+      <tr>
+        <td>fuser_id</td>
+        <td>Integer</td>
+        <td>Foreign Key (user.user_id), Not Null</td>
+      </tr>
+      <tr>
+        <td>user_follow_id</td>
+        <td>Integer</td>
+        <td>Primary key, Auto Increment</td>
+      </tr>
+   
+        
+    </tbody>
+    </table>
+    
+    
+     <h3> UserPosts Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>user_userpost_id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>user_id</td>
+        <td>Integer</td>
+        <td>Foreign Key (user.user_id), Not Null</td>
+      </tr>
+      <tr>
+        <td>post_id</td>
+        <td>Integer</td>
+        <td>Foreign Key (post.post_id), Not Null</td>
+      </tr>      
+    </tbody>
+    </table>
+    
+   
+    
+
+    <h3>User Error Codes </h3> 
+    <table>
+      <thead>
+        <th>Resource</th>
+        <th>Error Code</th>
+        <th>Message</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>User</td>
+        <td>USER001</td>
+        <td>User Id is required</td>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>USER002</td>
+        <td>Username is required</td>
+      </tr>
+      
+      <tr>
+        <td>User</td>
+        <td>USER003</td>
+        <td>Password required</td>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>USER004</td>
+        <td>Email is required</td>
+      </tr>
+      
+      <tr>
+        <td>User</td>
+        <td>USER005</td>
+        <td>First Name is required</td>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>USER006</td>
+        <td>Last Name is required</td>
+      </tr>
+      
+    </table>
+    <h3>Post Error Codes </h3> 
+    <table>
+      <thead>
+        <th>Resource</th>
+        <th>Error Code</th>
+        <th>Message</th>
+      </thead>
+      <tbody>
+      
+      <tr>
+        <td>Post</td>
+        <td>POST001</td>
+        <td>Post title is required</td>
+      </tr>
+      
+      <tr>
+        <td>Post</td>
+        <td>POST002</td>
+        <td>Post description is required</td>
+      </tr>
+    </table>
+    
+
+
+
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8080
+tags:
+  - name: "User"
+    description: "User CRUD operations"
+  - name: "Posts"
+    description: "Blogs CRUD operations"
+  
+paths:
+  /api/signup/{user_name}:
+   
+    description: End point to display profile of self.
+    get:
+      tags:
+        - "User"
+      summary: "Find user by ID"
+      description: Operation to display user resource.
+      parameters:
+        - in: path
+          name: user_name
+          required: true
+          schema:
+            type: string
+            example: default_name
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: self_user object
+                type: object
+
+                properties:
+                  user_name:
+                    type: string
+                    example: user_name
+                  password:
+                    type: string
+                    example: secret_key
+                  email:
+                    type: string
+                    example: default_user@abcmail.com
+                  first_name:
+                    type: string
+                    example: firstname
+                  last_name:
+                    type: string
+                    example: lastname
+                  profile+pic:
+                    type: string
+                    example: /static/filename
+                  
+                  
+                    
+                  
+        '500':
+          description: Internal Server Error
+        '404':
+          description: User not found
+    put:
+      tags:
+        - "User"
+      summary: "Update user credentials"
+      description: Operation to create the course resource
+      parameters:
+        - in: path
+          name: user_name
+          required: true
+          schema:
+            type: string
+            example: default_name
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile_pic:
+                  type: string
+                  example: /static/file_name
+                first_name:
+                  type: string
+                  example: "janani"
+                last_name:
+                  type: string
+                  example: "dileepan"
+                email:
+                  type: string
+                  example: "jan@mail.com"
+                dob:
+                  type: string
+                  example: "23/04/2004"
+              
+      responses:
+        '200':
+          description: Successfully Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: integer
+                    example: 201
+                  user_name:
+                    type: string
+                    example: default_user
+                  profile_pic:
+                    type: string
+                    example: /static/location
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+    delete:
+      tags:
+        - "User"
+      summary: "Delete user"
+      description: Operation to delete the user resource
+      parameters:
+        - in: path
+          name: user_name
+          required: true
+          schema:
+            type: string
+            example: default_name
+      responses:
+        '200':
+          description: Successfully deleted
+         
+        '404':
+          description: User does not exist
+        '500':
+          description: Internal Server Error
+
+  
+  /api/signup:
+    description: End point to display profile of others.
+    post:
+      tags:
+        - "User"
+      summary: "Add user credentials"
+      description: Operation to create the course resource
+      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 100
+                user_name:
+                  type: string
+                  example: jandileep
+                password:
+                  type: string
+                  example: "1234"
+                email:
+                  type: string
+                  example: jan@xyz.com
+                first_name:
+                  type: string
+                  example: Janani
+                last_name:
+                  type: string
+                  example: Dileepan
+                profile_pic:
+                  type: string
+                  example: file_name
+                dob:
+                  type: string
+                  example: 23/05/2022
+             
+      responses:
+        '200':
+          description: Successfully Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: integer
+                    example: 201
+                  user_name:
+                    type: string
+                    example: default_user
+                  profile_pic:
+                    type: string
+                    example: /static/location
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+  
+  
+  
+  /api/post/{user_name}:
+    description: End point to display profile of self.
+    get:
+      tags:
+        - "Posts"
+      summary: "Find posts by username"
+      description: Operation to display user resource.
+      parameters:
+        - in: path
+          name: user_name
+          required: true
+          schema:
+            type: string
+            example: default_name
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    post_id:
+                      type: integer
+                      example: 201
+                      
+                    title:
+                      type: string
+                      example: "title"
+                    desc:
+                      type: string
+                      example: "description"
+                    time:
+                      type: string
+                      example: "23:03:31"
+                    date:
+                      type: string
+                      example: "2022/3/3"
+                    picture:
+                      type: string
+                      example: "filename"
+                    likes:
+                      type: string
+                      example: "2"
+                     
+                    
+        '500':
+          description: Internal Server Error
+        '404':
+          description: User not found
+    post:
+      tags:
+        - "Posts"
+      summary: "Adds post by username"
+      description: Operation to create the post resource
+      parameters:
+        - in: path
+          name: user_name
+          required: true
+          schema:
+            type: string
+            example: default_name
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+               
+                
+                title:
+                  type: string
+                  example: example_name
+                desc:
+                  type: string
+                  example: About Post
+                picture:
+                  type: string
+                  example: /static/location_of_image
+                date:
+                  type: string
+                  example: 23/05/2004
+                time:
+                  type: string
+                  example: 12:33
+      responses:
+        '201':
+          description: Successfully Created
+          content:
+            application/json:
+              schema:
+                title: student object
+                type: object
+                properties:
+                  user_name:
+                    type: string
+                    example: default_name
+                  post_id:
+                    type: integer
+                    example: 201
+        
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+                    
+  /api/{user_name}/post/{post_id}:
+    description: End point to edit posts.
+    put:
+      tags:
+        - "Posts"
+      summary: "Edit posts by their ID"
+      description: Operation to edit the posts resource
+      parameters:
+        - in: path
+          name: user_name
+          required: true
+          schema:
+            type: string
+            example: default_name
+        - in: path
+          name: post_id
+          required: true
+          schema:
+            type: integer
+            example: 201
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                
+                title:
+                  type: string
+                  example: post_new_name
+                desc:
+                  type: string
+                  example: post_new_caption
+                picture:
+                  type: string
+                  example: new_file_name
+                
+      responses:
+        '200':
+          description: Successfully Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    example: title
+                  desc:
+                    type: string
+                    example: description
+                  picture:
+                    type: string
+                    example: picture
+                  date:
+                    type: string
+                    example: 23/05/203
+                  time:
+                    type: string
+                    example: 23:05
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+    delete:
+      tags:
+        - "Posts"
+      summary: "Delete Posts by ID"
+      description: Operation to delete the course resource
+      parameters:
+        - in: path
+          name: user_name
+          required: true
+       
+          schema:
+            type: string
+            example: default_name
+        - in: path
+          name: post_id
+          required: true
+          schema:
+            type: integer
+            example: 201
+      responses:
+        '200':
+          description: Successfully Deleted
+        '500':
+          description: Internal Server Error
+        '404':
+          description: Student not found
+    
